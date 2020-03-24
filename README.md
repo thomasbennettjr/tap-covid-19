@@ -10,8 +10,8 @@ This tap:
 - Extracts the following resources:
   - CSV Data Files: [Git API Search](https://developer.github.com/v3/search/#search-code) with [filename and extension filters](https://help.github.com/en/articles/searching-code) from the following COVID-19 Repositories; streaming in new/changed files:
     - [Johns Hopkins CSSE Data](https://github.com/CSSEGISandData/COVID-19)
-      - [jh_daily](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports)
-      - [jh_time_series](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series)
+      - [jh_csse_daily](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports)
+      - [jh_csse_time_series](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series)
     - [EU Data](https://github.com/covid19-eu-zh/covid19-eu-data)
       - [eu_daily](https://github.com/covid19-eu-zh/covid19-eu-data/tree/master/dataset)
     - [Italy Data](https://github.com/pcm-dpc/COVID-19)
@@ -77,7 +77,7 @@ Even though this tap pulls from public GitHub repositories, API request limits a
     {
         "api_token": "YOUR_GITHUB_API_TOKEN",
         "start_date": "2019-01-01T00:00:00Z",
-        "user_agent": "tap-lookml <api_user_email@your_company.com>"
+        "user_agent": "tap-covid-19 <api_user_email@your_company.com>"
     }
     ```
 
@@ -121,7 +121,7 @@ Even though this tap pulls from public GitHub repositories, API request limits a
 
 6. Test the Tap
     
-    While developing the lookml tap, the following utilities were run in accordance with Singer.io best practices:
+    While developing the COVID-19 tap, the following utilities were run in accordance with Singer.io best practices:
     Pylint to improve [code quality](https://github.com/singer-io/getting-started/blob/master/docs/BEST_PRACTICES.md#code-quality):
     ```bash
     > pylint tap_covid_19 -d missing-docstring -d logging-format-interpolation -d too-many-locals -d too-many-arguments
