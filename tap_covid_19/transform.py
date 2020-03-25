@@ -222,7 +222,7 @@ def transform_jh_csse_daily(record):
             new_val = None
             try:
                 new_val = round(float(val), 10)
-            except ValueError as err:
+            except Exception as err:
                 pass
             if new_val == 0.0:
                 new_val = None
@@ -231,7 +231,7 @@ def transform_jh_csse_daily(record):
         elif key in active_keys:
             try:
                 new_val = int(val)
-            except ValueError as err:
+            except Exception as err:
                 new_val = 0
             new_record['active'] = new_val
 

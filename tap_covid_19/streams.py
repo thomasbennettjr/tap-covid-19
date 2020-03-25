@@ -27,6 +27,7 @@ STREAMS = {
             }
         }
     }
+    # Add new streams here
 }
 
 # De-nest children nodes for Discovery mode
