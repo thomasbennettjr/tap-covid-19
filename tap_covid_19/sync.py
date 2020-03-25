@@ -101,11 +101,10 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
                   endpoint_config,
                   bookmark_field=None,
                   selected_streams=None):
-    
+
     # Endpoint parameters
     bookmark_query_field = endpoint_config.get('bookmark_query_field', None)
     data_key = endpoint_config.get('data_key', stream_name)
-    id_fields = endpoint_config.get('key_properties')
     LOGGER.info('data_key = {}'.format(data_key))
 
     # Get the latest bookmark for the stream and set the last_datetime
@@ -202,7 +201,6 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
                 if children:
                     for child_stream_name, child_endpoint_config in children.items():
                         if child_stream_name in selected_streams:
-                            transformed_csv_records = []
                             for record in content_list:
                                 record['git_path'] = file_path
                                 record['git_sha'] = file_sha

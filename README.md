@@ -30,13 +30,13 @@ This tap:
 - Folder: csse_covid_19_data/csse_covid_19_daily_reports
 - Search Endpoint: https://api.github.com/search/code?q=path:csse_covid_19_data/csse_covid_19_daily_reports+extension:csv+repo:CSSEGISandData/COVID-19
 - File Endpoint: https://api.github.com/repos/CSSEGISandData/COVID-19/contents/[GIT_FILE_PATH]
-- Primary key fields: url
+- Primary key fields: path
 - Replication strategy: INCREMENTAL (Search ALL, filter results)
   - Bookmark field: last_modified
 - Transformations: Remove _links node, remove content node, add repository fielda
 
 [jh_csse_daily](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports)
-- Primary key fields: url, row
+- Primary key fields: date, country_region, province_state
 - Replication strategy: FULL_TABLE (ALL for each model_file)
 - Transformations: Decode, parse jh_daily_file content, cleanse location fields, and convert to JSON
 
@@ -128,7 +128,7 @@ Even though this tap pulls from public GitHub repositories, API request limits a
     ```
     Pylint test resulted in the following score:
     ```bash
-    Your code has been rated ... TBD
+    Your code has been rated at 9.44/10
     ```
 
     To [check the tap](https://github.com/singer-io/singer-tools#singer-check-tap) and verify working:
@@ -139,19 +139,20 @@ Even though this tap pulls from public GitHub repositories, API request limits a
     Check tap resulted in the following:
     ```bash
     The output is valid.
-    It contained 11410 messages for 2 streams.
+    It contained 14826 messages for 2 streams.
 
-          2 schema messages
-      11403 record messages
-          5 state messages
+        2 schema messages
+    14821 record messages
+        3 state messages
 
     Details by stream:
     +---------------------+---------+---------+
     | stream              | records | schemas |
     +---------------------+---------+---------+
-    | jh_csse_daily_files | 62      | 1       |
-    | jh_csse_daily       | 11341   | 1       |
+    | jh_csse_daily       | 14758   | 1       |
+    | jh_csse_daily_files | 63      | 1       |
     +---------------------+---------+---------+
+
 
     ```
 ---

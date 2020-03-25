@@ -1,5 +1,4 @@
 import re
-from simplejson.scanner import JSONDecodeError
 from datetime import datetime
 import backoff
 import requests

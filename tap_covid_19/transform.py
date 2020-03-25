@@ -132,20 +132,21 @@ def transform_jh_csse_daily(record):
                 else:
                     new_val = val
             else:
-                for val in vals:
+                for value in vals:
                     # Trim new_val
-                    new_val = str(val).strip()
+                    new_val = str(value).strip()
                     if 'county' in new_val.lower():
                         county = new_val.replace('County', '').replace('county', '').strip()
-                    
+
                     # Lookup State code to get State Name
                     state = abbrev_us_state.get(new_val)
                     if state:
                         new_val = state
 
-            if 'cruise' in new_val.lower() or 'princess' in new_val.lower() or 'from' in new_val.lower():
+            if 'cruise' in new_val.lower() or 'princess' in new_val.lower() or 'from' \
+                in new_val.lower():
                 is_a_cruise = True
-            
+
             if new_val is None or new_val == '':
                 new_val = 'None'
 
@@ -156,7 +157,8 @@ def transform_jh_csse_daily(record):
             # Remove punctuation
             new_val = val.translate(str.maketrans('', '', string.punctuation))
 
-            if 'cruise' in new_val.lower() or 'princess' in new_val.lower() or 'from' in new_val.lower():
+            if 'cruise' in new_val.lower() or 'princess' in new_val.lower() or 'from' \
+                in new_val.lower():
                 is_a_cruise = True
 
             # Replace country names
@@ -164,7 +166,7 @@ def transform_jh_csse_daily(record):
                 new_val = 'South Korea'
             elif val == 'US':
                 new_val = 'United States'
-            
+
             new_record['country_region'] = new_val
 
         elif key in last_update_keys:
@@ -249,11 +251,9 @@ def transform_jh_csse_daily(record):
         new_record['province_state'] = 'None'
 
     return new_record
-    
 
 
 def transform_record(stream_name, record):
-    
     if stream_name == 'jh_csse_daily':
         new_record = transform_jh_csse_daily(record)
     # elif (other streams)
