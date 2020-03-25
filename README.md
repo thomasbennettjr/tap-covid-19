@@ -36,7 +36,7 @@ This tap:
 - Transformations: Remove _links node, remove content node, add repository fielda
 
 [jh_csse_daily](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports)
-- Primary key fields: date, country_region, province_state
+- Primary key fields: date, row_number
 - Replication strategy: FULL_TABLE (ALL for each model_file)
 - Transformations: Decode, parse jh_daily_file content, cleanse location fields, and convert to JSON
 

@@ -201,16 +201,20 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
                 if children:
                     for child_stream_name, child_endpoint_config in children.items():
                         if child_stream_name in selected_streams:
+                            i = 1
                             for record in content_list:
                                 record['git_path'] = file_path
                                 record['git_sha'] = file_sha
                                 record['git_last_modified'] = file_modified
                                 record['git_file_name'] = file_name
+                                record['row_number'] = i
 
                                 # Transform record and append
                                 transformed_csv_record = {}
                                 transformed_csv_record = transform_record(child_stream_name, record)
                                 csv_records.append(transformed_csv_record)
+
+                                i = i + 1
 
         # Process file_records and get the max_bookmark_value and record_count
         file_max_bookmark_value, file_record_count = process_records(

@@ -92,6 +92,7 @@ def transform_jh_csse_daily(record):
     new_record['git_sha'] = record.get('git_sha')
     new_record['git_last_modified'] = record.get('git_last_modified')
     new_record['git_file_name'] = file_name
+    new_record['row_number'] = record.get('row_number')
 
     # Date/Datetime from file_name
     timezone = pytz.timezone('UTC')

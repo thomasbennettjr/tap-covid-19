@@ -22,7 +22,7 @@ STREAMS = {
         'bookmark_query_field': 'If-Modified-Since',
         'children': {
             'jh_csse_daily': {
-                'key_properties': ['date', 'country_region', 'province_state'],
+                'key_properties': ['date', 'row_number'],
                 'replication_method': 'FULL_TABLE'
             }
         }

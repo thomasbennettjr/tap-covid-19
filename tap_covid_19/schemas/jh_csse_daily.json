@@ -15,6 +15,9 @@
       "type": ["null", "string"],
       "format": "date-time"
     },
+    "row_number": {
+      "type": ["null", "integer"]
+    },
     "date": {
       "type": ["null", "string"],
       "format": "date"
