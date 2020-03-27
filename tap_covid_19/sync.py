@@ -212,6 +212,11 @@ def sync_endpoint(client, #pylint: disable=too-many-branches
                                 # Transform record and append
                                 transformed_csv_record = {}
                                 transformed_csv_record = transform_record(child_stream_name, record)
+
+                                # Bad records and totals
+                                if transformed_csv_record is None:
+                                    continue
+
                                 csv_records.append(transformed_csv_record)
 
                                 i = i + 1

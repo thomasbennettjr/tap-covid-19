@@ -254,9 +254,76 @@ def transform_jh_csse_daily(record):
     return new_record
 
 
+def transform_eu_daily(record):
+    new_record = {}
+
+    # Git file fields
+    file_name = record.get('git_file_name')
+    new_record['git_path'] = record.get('git_path')
+    new_record['git_sha'] = record.get('git_sha')
+    new_record['git_last_modified'] = record.get('git_last_modified')
+    new_record['git_file_name'] = file_name
+    new_record['row_number'] = record.get('row_number')
+
+    # Datetime
+    dt_str = record.get('datetime')
+    dt = datetime.strptime(dt_str, '%Y-%m-%dT%H:%M:%S')
+    new_record['datetime'] = dt_str
+    new_record['date'] = dt.date()
+
+    # Report fields
+    new_record['cases_100k_pop'] = record.get('cases/100k pop.')
+
+    # ECDC files
+    new_record['source'] = 'ecdc' if file_name.startswith('ecdc') else 'country'
+    country = record.get('country')
+
+    # Skip totals for ECDC files
+    if country == 'Total':
+        return None
+
+    cases = record.get('cases')
+    # e.g. "1 to 4"
+    if 'to' in cases:
+        lower, upper = cases.split(' to ')
+        new_record['cases_lower'] = lower
+        new_record['cases_upper'] = upper
+        new_record['cases'] = None
+
+    # See https://github.com/covid19-eu-zh/covid19-eu-data/issues/38
+    elif cases == 'cases':
+        return None
+
+    else:
+        new_record['cases_lower'] = record.get('cases_lower')
+        new_record['cases_upper'] = record.get('cases_upper')
+        new_record['cases'] = record.get('cases')
+
+    unchanged_fields =  [
+        'country',
+        'nuts_1',
+        'nuts_2',
+        'nuts_3',
+        'lau',
+        'population',
+        'percent',
+        'deaths',
+        'recovered',
+        'hospitalized',
+        'intensive_care',
+        'tests',
+        'quarantine',
+    ]
+    new_record.update({f: record.get(f) for f in unchanged_fields})
+
+    return new_record
+
+
 def transform_record(stream_name, record):
     if stream_name == 'jh_csse_daily':
         new_record = transform_jh_csse_daily(record)
+    elif stream_name == 'eu_daily':
+        new_record = transform_eu_daily(record)
     # elif (other streams)
     else:
         new_record = record

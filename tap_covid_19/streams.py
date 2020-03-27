@@ -26,7 +26,27 @@ STREAMS = {
                 'replication_method': 'FULL_TABLE'
             }
         }
-    }
+    },
+    # Reference https://github.com/covid19-eu-zh/covid19-eu-data/tree/master/dataset/daily
+    'eu_daily_files': {
+        'search_path': 'search/code?q=path:dataset/daily+extension:csv+repo:covid19-eu-zh/covid19-eu-data&sort=indexed&order=asc',
+        'data_key': 'items',
+        'key_properties': ['path'],
+        'replication_method': 'INCREMENTAL',
+        'replication_keys': ['last_modified'],
+        'bookmark_query_field': 'If-Modified-Since',
+        'children': {
+            'eu_daily': {
+                'key_properties': [
+                    'country',
+                    'datetime',
+                    'row_number',
+                    'source',
+                ],
+                'replication_method': 'FULL_TABLE',
+            },
+        },
+    },
     # Add new streams here
 }
 
