@@ -38,10 +38,10 @@ STREAMS = {
         'children': {
             'eu_daily': {
                 'key_properties': [
+                    'source',
                     'country',
                     'datetime',
                     'row_number',
-                    'source',
                 ],
                 'replication_method': 'FULL_TABLE',
             },
