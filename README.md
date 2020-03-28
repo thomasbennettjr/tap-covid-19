@@ -40,6 +40,24 @@ This tap:
 - Replication strategy: FULL_TABLE (ALL for each model_file)
 - Transformations: Decode, parse jh_daily_file content, cleanse location fields, and convert to JSON
 
+[eu_daily_files](https://github.com/covid19-eu-zh/covid19-eu-data/tree/master/dataset/daily)
+- Repository: covid19-eu-zh/covid19-eu-data
+- Folder: dataset/daily/
+- Search Endpoint: https://api.github.com/search/code?q=path:dataset/daily+extension:csv+repo:covid19-eu-zh/covid19-eu-data&sort=indexed&order=asc
+- File Endpoint: https://api.github.com/repos/covid19-eu-zh/covid19-eu-data/contents/[GIT_FILE_PATH]
+- Primary key fields: path
+- Replication strategy: INCREMENTAL (Search ALL, filter results)
+  - Bookmark field: last_modified
+- Transformations: Remove _links node, remove content node, add repository fields
+
+[eu_daily](https://github.com/covid19-eu-zh/covid19-eu-data/tree/master/dataset/daily)
+- Primary key fields: source, country, datetime, row_number
+- Replication strategy: FULL_TABLE (ALL for each model_file)
+- Transformations: Decode, parse eu_daily_file content, get date from table datetime, merge differing column sets, convert to JSON
+- Notes:
+    - source is one of {'country', 'ecdc'}
+    - datetime was chosen as a key because some countries have more than one file a single date
+
 
 ## Authentication
 This tap requires a GitHub API Token. See Step 3 below.
