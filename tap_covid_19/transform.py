@@ -290,10 +290,6 @@ def transform_eu_daily(record):
         new_record['cases_upper'] = upper
         new_record['cases'] = None
 
-    # See https://github.com/covid19-eu-zh/covid19-eu-data/issues/38
-    elif cases == 'cases':
-        return None
-
     else:
         new_record['cases_lower'] = record.get('cases_lower')
         new_record['cases_upper'] = record.get('cases_upper')
