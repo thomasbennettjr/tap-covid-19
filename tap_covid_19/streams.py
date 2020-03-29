@@ -26,7 +26,26 @@ STREAMS = {
                 'replication_method': 'FULL_TABLE'
             }
         }
+    },
+
+    # JSCOTT: added italy stream
+    # Dati COVID-19 Italia (COVID-19 data Italy)
+    # Reference: https://github.com/pcm-dpc/COVID-19
+    'italy_daily_files': {
+        'search_path': 'search/code?q=path:dati-regioni+extension:csv+repo:pcm-dpc/COVID-19&sort=indexed&order=asc',
+        'data_key': 'items',
+        'key_properties': ['path'],
+        'replication_method': 'INCREMENTAL',
+        'replication_keys': ['last_modified'],
+        'bookmark_query_field': 'If-Modified-Since',
+        'children': {
+            'italy_daily_region': {
+                'key_properties': ['date', 'row_number'],
+                'replication_method': 'FULL_TABLE'
+            }
+        }
     }
+
     # Add new streams here
 }
 
